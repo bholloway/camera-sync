@@ -3,7 +3,7 @@
 const program = require('commander');
 
 const {version, description} = require('../package.json');
-const {multiline, simple, fileList} = require('../lib/format');
+const {multiline, simple, fileList} = require('../lib/util/format');
 
 
 const onError = (error) => {
@@ -20,7 +20,7 @@ program
   .command('scan <source>')
   .description('find source files')
   .action(source =>
-    require('../lib/scan')({source})
+    require('../lib/api/scan')({source})
       .then(logStats(multiline(
         simple('source'),
         fileList('images'),
@@ -34,7 +34,7 @@ program
   .command('test <source> <destination>')
   .description('test sync without writing files')
   .action((source, destination) =>
-    require('../lib/test')({source, destination})
+    require('../lib/api/test')({source, destination})
       .then(logStats(multiline(
         simple('source'),
         simple('destination'),
@@ -48,7 +48,7 @@ program
   .command('sync <source> <destination>')
   .description('sync by writing files to the destination')
   .action((source, destination) =>
-    require('../lib/sync')({source, destination})
+    require('../lib/api/sync')({source, destination})
       .then(logStats(multiline(
         simple('source'),
         simple('destination'),
