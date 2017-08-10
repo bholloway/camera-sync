@@ -31,10 +31,23 @@ program
   );
 
 program
-  .command('test <source> <destination>')
+  .command('list <destination>')
+  .description('list existing files in the destination')
+  .action(destination =>
+    require('../lib/api/list')({destination})
+      .then(logStats(multiline(
+        simple('destination'),
+        fileList('existing'),
+        fileList('others')
+      )))
+      .catch(onError)
+  );
+
+program
+  .command('plan <source> <destination>')
   .description('test sync without writing files')
   .action((source, destination) =>
-    require('../lib/api/test')({source, destination})
+    require('../lib/api/plan')({source, destination})
       .then(logStats(multiline(
         simple('source'),
         simple('destination'),
