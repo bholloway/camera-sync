@@ -59,9 +59,9 @@ program
         fileList('scan.others'),
         simple('destination'),
         simple('list.path'),
-        fileList('list.images'),
-        fileList('list.videos'),
-        fileList('list.others')
+        fileList('plan.images'),
+        fileList('plan.videos'),
+        fileList('plan.errors')
       )))
       .catch(onError)
   );
