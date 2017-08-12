@@ -23,9 +23,10 @@ program
     require('../lib/api/scan')({source})
       .then(logStats(multiline(
         simple('source'),
-        fileList('images'),
-        fileList('videos'),
-        fileList('others')
+        simple('scan.path'),
+        fileList('scan.images'),
+        fileList('scan.videos'),
+        fileList('scan.others')
       )))
       .catch(onError)
   );
@@ -37,8 +38,10 @@ program
     require('../lib/api/list')({destination})
       .then(logStats(multiline(
         simple('destination'),
-        fileList('existing'),
-        fileList('others')
+        simple('list.path'),
+        fileList('list.images'),
+        fileList('list.videos'),
+        fileList('list.others')
       )))
       .catch(onError)
   );
@@ -50,9 +53,15 @@ program
     require('../lib/api/plan')({source, destination})
       .then(logStats(multiline(
         simple('source'),
+        simple('scan.path'),
+        fileList('scan.images'),
+        fileList('scan.videos'),
+        fileList('scan.others'),
         simple('destination'),
-        fileList('others'),
-        fileList('updates')
+        simple('list.path'),
+        fileList('list.images'),
+        fileList('list.videos'),
+        fileList('list.others')
       )))
       .catch(onError)
   );
