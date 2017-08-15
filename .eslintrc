@@ -5,7 +5,7 @@
     "object-curly-spacing": "off",
     "comma-dangle": "off",
     "import/prefer-default-export": "off",
-    "no-shadow": ["error", { "allow": ["describe", "it"] }],
+    "no-shadow": ["error", {"allow": ["describe", "it", "lens", "merge", "map", "all"]}],
     "padded-blocks": "off",
     "global-require": "off",
     "no-console": "off",
