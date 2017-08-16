@@ -2,6 +2,7 @@
   "extends": "airbnb-base",
   "rules": {
     "no-else-return": "off",
+    "no-return-assign": "off",
     "object-curly-spacing": "off",
     "comma-dangle": "off",
     "import/prefer-default-export": "off",
@@ -9,6 +10,7 @@
     "padded-blocks": "off",
     "global-require": "off",
     "no-console": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "arrow-parens": ["error", "always"]
   }
 }

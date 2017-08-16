@@ -7,6 +7,10 @@
   "repository": "https://github.com/bholloway/camera-sync.git",
   "author": "Ben Holloway <github@bholloway.com>",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "dependencies": {
     "commander": "^2.11.0",
     "compose-function": "^3.0.3",

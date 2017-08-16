@@ -12,14 +12,14 @@ const onError = (error) => {
 };
 
 
-const logStats = formatter => stats =>
+const logStats = (formatter) => (stats) =>
   console.log(formatter(stats));
 
 
 program
   .command('scan <source>')
   .description('find source files')
-  .action(source =>
+  .action((source) =>
     require('../lib/api/scan')({source})
       .then(logStats(multiline(
         simple('source'),
@@ -34,7 +34,7 @@ program
 program
   .command('list <destination>')
   .description('list existing files in the destination')
-  .action(destination =>
+  .action((destination) =>
     require('../lib/api/list')({destination})
       .then(logStats(multiline(
         simple('destination'),
