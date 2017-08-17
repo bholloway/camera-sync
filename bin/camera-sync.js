@@ -4,6 +4,7 @@ const program = require('commander');
 
 const {version, description} = require('../package.json');
 const {multiline, simple, fileList} = require('../lib/util/format');
+const progress = require('../lib/util/progress');
 
 
 const onError = (error) => {
@@ -20,7 +21,7 @@ program
   .command('scan <source>')
   .description('find source files')
   .action((source) =>
-    require('../lib/api/scan')({source})
+    require('../lib/api/scan')({progress})({source})
       .then(logStats(multiline(
         simple('source'),
         simple('scan.path'),
@@ -35,7 +36,7 @@ program
   .command('list <destination>')
   .description('list existing files in the destination')
   .action((destination) =>
-    require('../lib/api/list')({destination})
+    require('../lib/api/list')({progress})({destination})
       .then(logStats(multiline(
         simple('destination'),
         simple('list.path'),
@@ -50,7 +51,7 @@ program
   .command('plan <source> <destination>')
   .description('test sync without writing files')
   .action((source, destination) =>
-    require('../lib/api/plan')({source, destination})
+    require('../lib/api/plan')({progress})({source, destination})
       .then(logStats(multiline(
         simple('source'),
         simple('scan.path'),
@@ -70,7 +71,7 @@ program
   .command('sync <source> <destination>')
   .description('sync by writing files to the destination')
   .action((source, destination) =>
-    require('../lib/api/sync')({source, destination})
+    require('../lib/api/sync')({progress})({source, destination})
       .then(logStats(multiline(
         simple('source'),
         simple('destination'),

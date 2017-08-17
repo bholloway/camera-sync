@@ -3,14 +3,15 @@
   "rules": {
     "no-else-return": "off",
     "no-return-assign": "off",
+    "no-multi-assign": "off",
     "object-curly-spacing": "off",
     "comma-dangle": "off",
     "import/prefer-default-export": "off",
-    "no-shadow": ["error", {"allow": ["describe", "it", "lens", "merge", "map", "all"]}],
     "padded-blocks": "off",
     "global-require": "off",
     "no-console": "off",
     "no-plusplus": "off",
-    "arrow-parens": ["error", "always"]
+    "arrow-parens": ["error", "always"],
+    "no-shadow": ["error", {"allow": ["describe", "it", "lens", "merge", "map", "all"]}]
   }
 }
