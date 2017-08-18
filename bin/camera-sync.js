@@ -4,17 +4,23 @@ const program = require('commander');
 
 const {version, description} = require('../package.json');
 const {multiline, simple, fileList} = require('../lib/util/format');
-const progress = require('../lib/util/progress');
+const {report: progress, destroy} = require('../lib/util/progress')({width: 40});
 
 
-const onError = (error) => {
-  console.error(error);
-  process.exit(1);
+const onExit = () => {
+  destroy();
+  process.nextTick(() => process.exit(1));
 };
 
+const onError = (error) => {
+  onExit();
+  console.error(error);
+};
 
 const logStats = (formatter) => (stats) =>
   console.log(formatter(stats));
+
+process.on('SIGINT', onExit);
 
 
 program
