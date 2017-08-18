@@ -1,6 +1,7 @@
 {
   "extends": "airbnb-base",
   "rules": {
+    "no-nested-ternary": "off",
     "no-else-return": "off",
     "no-return-assign": "off",
     "no-multi-assign": "off",
