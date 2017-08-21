@@ -23,6 +23,10 @@ const logStats = (formatter) => (stats) =>
 
 process.on('SIGINT', onExit);
 
+process.on('unhandledRejection', (error) => {
+  throw error;
+});
+
 
 program
   .command('scan <source>')
