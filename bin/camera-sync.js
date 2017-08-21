@@ -85,9 +85,16 @@ program
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
+        simple('scan.path'),
+        fileList('scan.images'),
+        fileList('scan.videos'),
+        fileList('scan.others'),
         simple('destination'),
-        fileList('others'),
-        fileList('updates')
+        simple('list.path'),
+        fileList('plan.images'),
+        fileList('plan.videos'),
+        fileList('plan.errors'),
+        fileList('sync.errors')
       )))
       .catch(onError)
   );
