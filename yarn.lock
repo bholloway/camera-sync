@@ -2,6 +2,17 @@
 # yarn lockfile v1
 
 
+"@ronomon/queue@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@ronomon/queue/-/queue-2.1.0.tgz#3a6624f97532b682999907adb703c655a159df7d"
+
+"@ronomon/utimes@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@ronomon/utimes/-/utimes-2.1.0.tgz#4cb5fd38e9736df8b38c96f7b53d4757c07c42f3"
+  dependencies:
+    "@ronomon/queue" "^2.1.0"
+    nan "^2.6.2"
+
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
@@ -709,6 +720,10 @@ ms@2.0.0:
 mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
+
+nan@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
 
 natural-compare@^1.4.0:
   version "1.4.0"

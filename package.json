@@ -13,6 +13,7 @@
     "test:clear": "rm -rf test/destination/*"
   },
   "dependencies": {
+    "@ronomon/utimes": "^2.1.0",
     "ascii-progress": "^1.0.5",
     "commander": "^2.11.0",
     "compose-function": "^3.0.3",

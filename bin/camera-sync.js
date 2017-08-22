@@ -64,8 +64,9 @@ program
 program
   .command('plan <source> <destination>')
   .description('test sync without writing files')
-  .action((source, destination) =>
-    require('../lib/api/plan')({progress})({source, destination})
+  .option('-s --allowStat', 'use file creation data where no metadata exists')
+  .action((source, destination, {allowStat}) =>
+    require('../lib/api/plan')({progress, allowStat})({source, destination})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -86,8 +87,9 @@ program
 program
   .command('sync <source> <destination>')
   .description('sync by writing files to the destination')
-  .action((source, destination) =>
-    require('../lib/api/sync')({progress})({source, destination})
+  .option('-s --allowStat', 'use file creation data where no metadata exists')
+  .action((source, destination, {allowStat}) =>
+    require('../lib/api/sync')({progress, allowStat})({source, destination})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
