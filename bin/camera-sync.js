@@ -39,7 +39,8 @@ program
         simple('scan.path'),
         fileList('scan.images'),
         fileList('scan.videos'),
-        fileList('scan.others')
+        fileList('scan.others'),
+        fileList('scan.errors')
       )))
       .catch(onError)
   );
@@ -52,7 +53,7 @@ program
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('destination'),
-        simple('list.path'),
+        simple('list.base'),
         fileList('list.images'),
         fileList('list.videos'),
         fileList('list.others')
@@ -72,11 +73,11 @@ program
         fileList('scan.images'),
         fileList('scan.videos'),
         fileList('scan.others'),
+        fileList('scan.errors'),
         simple('destination'),
-        simple('list.path'),
-        fileList('plan.images'),
-        fileList('plan.videos'),
-        fileList('plan.errors')
+        simple('plan.base'),
+        fileList('plan.pending'),
+        fileList('plan.present')
       )))
       .catch(onError)
   );
@@ -94,10 +95,9 @@ program
         fileList('scan.videos'),
         fileList('scan.others'),
         simple('destination'),
-        simple('list.path'),
-        fileList('plan.images'),
-        fileList('plan.videos'),
-        fileList('plan.errors'),
+        simple('plan.base'),
+        fileList('plan.pending'),
+        fileList('plan.present'),
         fileList('sync.errors')
       )))
       .catch(onError)
