@@ -3,9 +3,9 @@
 const program = require('commander');
 
 const {version, description} = require('../package.json');
-const {passThrough} = require('../lib/util/functional-utils');
-const {multiline, simple, fileList} = require('../lib/util/format');
-const {report: progress, destroy} = require('../lib/util/progress')({width: 40});
+const {passThrough} = require('../lib/functional/misc');
+const {multiline, blankline, simple, fileList} = require('../lib/cli/format');
+const {report: progress, destroy} = require('../lib/cli/progress')({width: 40});
 
 
 const onExit = () => {
@@ -74,6 +74,7 @@ program
         fileList('scan.videos'),
         fileList('scan.others'),
         fileList('scan.errors'),
+        blankline(),
         simple('destination'),
         simple('plan.base'),
         fileList('plan.pending'),
@@ -94,6 +95,7 @@ program
         fileList('scan.images'),
         fileList('scan.videos'),
         fileList('scan.others'),
+        blankline(),
         simple('destination'),
         simple('plan.base'),
         fileList('plan.pending'),
