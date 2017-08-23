@@ -22,16 +22,21 @@ const glob = (pattern) => {
 const assertDateTimeOriginal = (t) => (args) =>
   Promise.resolve(args)
     .then(([meta, {birthtime}]) => {
-      const {exif: {DateTimeOriginal} = {}} = meta || {};
+      const {exif: {DateTimeOriginal, Duration} = {}} = meta || {};
       t.ok(
         DateTimeOriginal,
         'should extract DateTimeOriginal from the file'
       );
 
-      const diff = Math.abs(+DateTimeOriginal - toUTC(birthtime)) / 1000;
       t.ok(
-        diff < 30,
-        `DateTimeOriginal as UTC should match file birthtime as Local to within 30sec (${diff} sec)`
+        Duration,
+        'should extract Duration from the file'
+      );
+
+      const diff = (+toUTC(birthtime) / 1000) - (+DateTimeOriginal / 1000 + Duration);
+      t.ok(
+        diff < 5.0,
+        `DateTimeOriginal + Duration as UTC should match file birthtime as Local (${diff} < 5 sec)`
       );
     })
     .catch((error) => t.fail(error.message))
