@@ -13,7 +13,7 @@
     "test:extract": "unzip test/sources.zip -d test/source",
     "test:run": "tape test/index.js | tap-diff",
     "test:reset": "rm -rf test/destination/*",
-    "test:cleanup": "rm -rf test/source/*"
+    "test:clean": "rm -rf test/source/*"
   },
   "dependencies": {
     "@ronomon/utimes": "^2.1.0",
