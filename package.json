@@ -10,7 +10,10 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:clear": "rm -rf test/destination/*"
+    "test:extract": "unzip test/sources.zip -d test/source",
+    "test:run": "tape test/index.js | tap-diff",
+    "test:reset": "rm -rf test/destination/*",
+    "test:cleanup": "rm -rf test/source/*"
   },
   "dependencies": {
     "@ronomon/utimes": "^2.1.0",
@@ -30,6 +33,9 @@
   "devDependencies": {
     "eslint": "^4.4.1",
     "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "tap-diff": "^0.1.1",
+    "tape": "^4.8.0",
+    "tape-check": "^1.0.0-rc.0"
   }
 }

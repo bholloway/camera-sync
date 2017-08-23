@@ -1,3 +1,5 @@
 /node_modules
 /test/source
 /test/destination
+/test/sources.zip
+/yarn-error.log
