@@ -27,6 +27,11 @@ process.on('unhandledRejection', (error) => {
   throw error;
 });
 
+const collect = (val, memo) => {
+  memo.push(val);
+  return memo;
+};
+
 
 program
   .command('scan <source>')
@@ -64,9 +69,9 @@ program
 program
   .command('plan <source> <destination>')
   .description('test sync without writing files')
-  .option('-s --allowStat', 'use file creation data where no metadata exists')
-  .action((source, destination, {allowStat}) =>
-    require('../lib/api/plan')({progress, allowStat})({source, destination})
+  .option('-w --whitelist [ext]', 'allow files that dont have metadata', collect, [])
+  .action((source, destination, {whitelist}) =>
+    require('../lib/api/plan')({progress, whitelist})({source, destination})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -87,9 +92,9 @@ program
 program
   .command('sync <source> <destination>')
   .description('sync by writing files to the destination')
-  .option('-s --allowStat', 'use file creation data where no metadata exists')
-  .action((source, destination, {allowStat}) =>
-    require('../lib/api/sync')({progress, allowStat})({source, destination})
+  .option('-w --whitelist [ext]', 'allow files that dont have metadata', collect, [])
+  .action((source, destination, {whitelist}) =>
+    require('../lib/api/sync')({progress, whitelist})({source, destination})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
