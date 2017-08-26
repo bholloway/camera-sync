@@ -39,8 +39,9 @@ const collect = (val, memo) => {
 program
   .command('scan <source>')
   .description('find source files')
-  .action((source) =>
-    require('../lib/api/scan')({progress})({source})
+  .option('-m --useMeta', 'Require metadata for the cannonical filename')
+  .action((source, {useMeta}) =>
+    require('../lib/api/scan')({progress, useMeta})({source})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -72,9 +73,10 @@ program
 program
   .command('plan <source> <destination>')
   .description('test sync without writing files')
+  .option('-m --useMeta', 'use metadata in the cannonical filename')
   .option('-w --whitelist [ext]', 'allow files that dont have metadata', collect, [])
-  .action((source, destination, {whitelist}) =>
-    require('../lib/api/plan')({progress, whitelist})({source, destination})
+  .action((source, destination, {whitelist, useMeta}) =>
+    require('../lib/api/plan')({progress, whitelist, useMeta})({source, destination})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -95,9 +97,10 @@ program
 program
   .command('sync <source> <destination>')
   .description('sync by writing files to the destination')
+  .option('-m --useMeta', 'use metadata in the cannonical filename')
   .option('-w --whitelist [ext]', 'allow files that dont have metadata', collect, [])
-  .action((source, destination, {whitelist}) =>
-    require('../lib/api/sync')({progress, whitelist})({source, destination})
+  .action((source, destination, {whitelist, useMeta}) =>
+    require('../lib/api/sync')({progress, whitelist, useMeta})({source, destination})
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
