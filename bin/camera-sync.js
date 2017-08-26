@@ -35,13 +35,27 @@ const collect = (val, memo) => {
   return memo;
 };
 
+const deriveOptions = ({memory, parallelism, whitelist, useMeta}) => ({
+  progress,
+  parallelism,
+  whitelist,
+  useMeta,
+  bufferSize: memory * 1E+6 / parallelism
+});
+
 
 program
   .command('scan <source>')
   .description('find source files')
-  .option('-m --useMeta', 'Require metadata for the cannonical filename')
-  .action((source, {useMeta}) =>
-    require('../lib/api/scan')({progress, useMeta})({source})
+  .option('-p --parallelism', 'maximum parallel tasks (such as file operations)')
+  .option('-m --memory', 'file buffer in megabytes')
+  .option('-m --useMeta', 'use metadata in the canonical filename')
+  .action((source, options) =>
+    require('../lib/api/scan')(
+      deriveOptions(options)
+    )({
+      source,
+    })
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -57,8 +71,14 @@ program
 program
   .command('list <destination>')
   .description('list existing files in the destination')
-  .action((destination) =>
-    require('../lib/api/list')({progress})({destination})
+  .option('-p --parallelism', 'maximum parallel tasks (such as file operations)')
+  .option('-m --memory', 'file buffer in megabytes')
+  .action((destination, options) =>
+    require('../lib/api/list')(
+      deriveOptions(options)
+    )({
+      destination
+    })
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('destination'),
@@ -73,10 +93,17 @@ program
 program
   .command('plan <source> <destination>')
   .description('test sync without writing files')
-  .option('-m --useMeta', 'use metadata in the cannonical filename')
+  .option('-p --parallelism', 'maximum parallel tasks (such as file operations)')
+  .option('-m --memory', 'file buffer in megabytes')
+  .option('-m --useMeta', 'use metadata in the canonical filename')
   .option('-w --whitelist [ext]', 'allow files that dont have metadata', collect, [])
-  .action((source, destination, {whitelist, useMeta}) =>
-    require('../lib/api/plan')({progress, whitelist, useMeta})({source, destination})
+  .action((source, destination, options) =>
+    require('../lib/api/plan')(
+      deriveOptions(options)
+    )({
+      source,
+      destination
+    })
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -97,10 +124,17 @@ program
 program
   .command('sync <source> <destination>')
   .description('sync by writing files to the destination')
-  .option('-m --useMeta', 'use metadata in the cannonical filename')
+  .option('-p --parallelism', 'maximum parallel tasks (such as file operations)')
+  .option('-m --memory', 'file buffer in megabytes')
+  .option('-m --useMeta', 'use metadata in the canonical filename')
   .option('-w --whitelist [ext]', 'allow files that dont have metadata', collect, [])
-  .action((source, destination, {whitelist, useMeta}) =>
-    require('../lib/api/sync')({progress, whitelist, useMeta})({source, destination})
+  .action((source, destination, options) =>
+    require('../lib/api/sync')(
+      deriveOptions(options)
+    )({
+      source,
+      destination
+    })
       .then(passThrough(destroy))
       .then(logStats(multiline(
         simple('source'),
@@ -108,11 +142,13 @@ program
         fileList('scan.images'),
         fileList('scan.videos'),
         fileList('scan.others'),
+        fileList('scan.errors'),
         blankline(),
         simple('destination'),
         simple('plan.base'),
         fileList('plan.pending'),
         fileList('plan.present'),
+        blankline(),
         fileList('sync.errors')
       )))
       .catch(onError)
