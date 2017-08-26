@@ -5,7 +5,10 @@ const program = require('commander');
 const {version, description} = require('../package.json');
 const {passThrough} = require('../lib/functional/misc');
 const {multiline, blankline, simple, fileList} = require('../lib/cli/format');
-const {report: progress, destroy} = require('../lib/cli/progress')({width: 40});
+const {report: progress, destroy} = require('../lib/cli/progress')({
+  width: 60,
+  clear: true
+});
 
 
 const onExit = () => {
